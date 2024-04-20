@@ -1,7 +1,6 @@
 import java.time.LocalDate;
 import java.util.*;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Exercises {
 
@@ -37,9 +36,9 @@ public class Exercises {
         assert 2571 == beginner2(books);
         assert Boolean.TRUE.equals(beginner3(authors));
 
-        assert List.of(tolkien, saramago, faulkner).equals(middle1(authors));
-        assert 15.24 == middle2(books, LocalDate.of(2000, 1, 1));
-        assert Boolean.TRUE.equals(middle3(books));
+        assert List.of(tolkien, saramago, faulkner).equals(intermediate1(authors));
+        assert 15.24 == intermediate2(books, LocalDate.of(2000, 1, 1));
+        assert Boolean.TRUE.equals(intermediate3(books));
 
         assert Set.of(adams.lastName, marquez.lastName, saramago.lastName, faulkner.lastName, tolkien.lastName).equals(advanced1(books).keySet());
         assert Boolean.FALSE.equals(advanced2(books));
@@ -71,14 +70,14 @@ public class Exercises {
      * @return top 3 authors who have written more than 10 books
      * in a reverse alphabetic order (sorted by last name)
      */
-    private static List<Author> middle1(List<Author> authors) {
+    private static List<Author> intermediate1(List<Author> authors) {
         return null; // TODO: implement
     }
 
     /**
      * @return average price of books issued before the date
      */
-    private static double middle2(List<Book> books, LocalDate issueDate) {
+    private static double intermediate2(List<Book> books, LocalDate issueDate) {
         return 0; // TODO: implement
     }
 
@@ -86,7 +85,7 @@ public class Exercises {
      * @return true if the author of the book with the largest number of pages
      * has written more than 10 books, false otherwise
      */
-    private static boolean middle3(List<Book> books) {
+    private static boolean intermediate3(List<Book> books) {
         return false; // TODO: implement
     }
 
