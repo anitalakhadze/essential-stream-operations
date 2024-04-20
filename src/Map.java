@@ -11,6 +11,4 @@ public class Map {
         assert List.of("HAMSTER", "CAT", "DOG").equals(upperCaseNames);
     }
 
-    // TODO: add exercises
-
 }
