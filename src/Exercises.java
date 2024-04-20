@@ -7,13 +7,15 @@ public class Exercises {
 
     record Author(String firstName,
                   String lastName,
-                  int numberOfBooksWritten) {}
+                  int numberOfBooksWritten) {
+    }
 
     record Book(String title,
                 Author author,
                 int pages,
                 LocalDate issueDate,
-                double price) {}
+                double price) {
+    }
 
     public static void main(String[] args) {
         // Authors
@@ -50,21 +52,29 @@ public class Exercises {
      * @return all books published after 2000
      */
     private static List<Book> beginner1(List<Book> books) {
-        return null; // TODO: implement
+        return books
+                .stream()
+                .filter(book -> book.issueDate.isAfter(LocalDate.of(2000, 12, 31)))
+                .toList();
     }
 
     /**
      * @return total number of pages of all books combined
      */
     private static int beginner2(List<Book> books) {
-        return 0; // TODO: implement
+        return books
+                .stream()
+                .map(book -> book.pages)
+                .reduce(0, Integer::sum);
     }
 
     /**
      * @return true if there is at least one author who has written 10 books, false otherwise
      */
     private static boolean beginner3(List<Author> authors) {
-        return false; // TODO: implement
+        return authors
+                .stream()
+                .anyMatch(author -> author.numberOfBooksWritten > 10);
     }
 
     /**
@@ -72,14 +82,24 @@ public class Exercises {
      * in a reverse alphabetic order (sorted by last name)
      */
     private static List<Author> middle1(List<Author> authors) {
-        return null; // TODO: implement
+        return authors
+                .stream()
+                .filter(author -> author.numberOfBooksWritten > 10)
+                .sorted(Comparator.comparing(Author::lastName, Comparator.reverseOrder()))
+                .limit(3)
+                .toList();
     }
 
     /**
      * @return average price of books issued before the date
      */
     private static double middle2(List<Book> books, LocalDate issueDate) {
-        return 0; // TODO: implement
+        return books
+                .stream()
+                .filter(book -> book.issueDate.isBefore(issueDate))
+                .mapToDouble(Book::price)
+                .average()
+                .orElse(0.0);
     }
 
     /**
@@ -87,7 +107,11 @@ public class Exercises {
      * has written more than 10 books, false otherwise
      */
     private static boolean middle3(List<Book> books) {
-        return false; // TODO: implement
+        return books
+                .stream()
+                .max(Comparator.comparing(Book::pages))
+                .map(book -> book.author.numberOfBooksWritten > 10)
+                .orElse(false);
     }
 
     /**
@@ -95,14 +119,20 @@ public class Exercises {
      * and the value is a list of books written by that author
      */
     private static Map<String, List<Book>> advanced1(List<Book> books) {
-        return null; // TODO: implement
+        return books
+                .stream()
+                .collect(Collectors.groupingBy(book -> book.author.lastName));
     }
 
     /**
      * @return true if the last name of the authors of the 3 latest books starts with "T", false otherwise
      */
     private static boolean advanced2(List<Book> books) {
-        return false; // TODO: implement
+        return books
+                .stream()
+                .sorted(Comparator.comparing(Book::issueDate))
+                .skip(2)
+                .anyMatch(book -> book.author.lastName.startsWith("T"));
     }
 
     /**
@@ -110,6 +140,11 @@ public class Exercises {
      * and the value is the total number of books written by that author
      */
     private static Map<String, Integer> advanced3(List<Book> books, List<Author> authors) {
-        return null; // TODO: implement
+        return authors
+                .stream()
+                .filter(author -> books
+                        .stream()
+                        .anyMatch(book -> book.author.equals(author) && book.pages < 500))
+                .collect(Collectors.groupingBy(Author::lastName, Collectors.summingInt(author -> author.numberOfBooksWritten)));
     }
 }
