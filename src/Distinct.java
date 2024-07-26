@@ -8,7 +8,7 @@ public class Distinct {
                 .stream()
                 .distinct()
                 .toList();
-        assert List.of(1, 2, 3, 4).equals(distinctNumbers);
+        assert List.of(1, 2, 3, 4, 5).equals(distinctNumbers);
     }
 
 }
